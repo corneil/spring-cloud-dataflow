@@ -3,7 +3,7 @@ name: CI IT Security
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 6 * * 1'
+    - cron: '0 6 * * 1-5'
 
 jobs:
   test:
@@ -30,14 +30,8 @@ jobs:
         ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
         ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
       run: |
-        mvn clean install -DskipTests -T 1C -s .settings.xml -pl spring-cloud-dataflow-server -am
-        mvn \
-          -s .settings.xml \
-          -pl spring-cloud-dataflow-server \
-          -Dgroups=oauth \
-          -Pfailsafe \
-          --batch-mode \
-          test
+        ./mvnw -s .settings.xml -DskipTests -T 1C -B -pl spring-cloud-dataflow-server -am clean install
+        ./mvnw -s .settings.xml -Dgroups=oauth -Pintegration-tests -B -pl spring-cloud-dataflow-server test
     - name: Test Report
       uses: dorny/test-reporter@v1
       if: ${{ success() || failure() }}
@@ -50,7 +44,7 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ matrix.group }}-test-results-failsafe
-        path: './**/target/failsafe-reports/**/*.*'
+        name: ${{ matrix.group }}-test-results-integration-tests
+        path: './**/target/surefire-reports/**/*.*'
         retention-days: 7
         if-no-files-found: ignore

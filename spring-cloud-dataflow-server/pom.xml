@@ -313,7 +313,7 @@
 
 	<profiles>
 		<profile>
-			<id>failsafe</id>
+			<id>integration-tests</id>
 			<properties>
 				<groups>mariadb</groups>
 			</properties>
