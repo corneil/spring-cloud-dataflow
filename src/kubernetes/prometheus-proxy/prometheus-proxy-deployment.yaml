@@ -17,7 +17,7 @@ spec:
       serviceAccountName: prometheus-rsocket-proxy
       containers:
         - name: prometheus-rsocket-proxy
-          image: micrometermetrics/prometheus-rsocket-proxy:1.5.2
+          image: micrometermetrics/prometheus-rsocket-proxy:1.5.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: scrape
@@ -29,7 +29,7 @@ spec:
               cpu: 1500m
               memory: 1Gi
           env:
-            - name: LOGGING_LEVEL_IO_MICROMETER
+            - name: LOGGING_LEVEL_ROOT
               value: DEBUG
       securityContext:
         fsGroup: 2000

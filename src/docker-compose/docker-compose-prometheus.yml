@@ -6,6 +6,8 @@ services:
 
   dataflow-server:
     environment:
+      - MANAGEMENT_ENDPOINT_METRICS_ENABLED=true
+      - MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=true
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_RSOCKET_ENABLED=true
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_RSOCKET_HOST=prometheus-rsocket-proxy
@@ -15,6 +17,8 @@ services:
 
   skipper-server:
     environment:
+      - MANAGEMENT_ENDPOINT_METRICS_ENABLED=true
+      - MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=true
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_RSOCKET_ENABLED=true
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_RSOCKET_HOST=prometheus-rsocket-proxy
@@ -22,7 +26,7 @@ services:
       #- SPRING_APPLICATION_JSON={"spring.jpa.properties.hibernate.generate_statistics":true}
 
   prometheus-rsocket-proxy:
-    image: micrometermetrics/prometheus-rsocket-proxy:1.5.2
+    image: micrometermetrics/prometheus-rsocket-proxy:1.5.3
     container_name: prometheus-rsocket-proxy
     expose:
       - '9096'
