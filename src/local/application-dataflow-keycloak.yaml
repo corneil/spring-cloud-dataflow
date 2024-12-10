@@ -34,7 +34,6 @@ spring:
             client-secret: '090RucamvekrMLyGHMr4lkHX9xhAlsqK'
             provider: 'keycloak'
             authorization-grant-type: 'authorization_code'
-#            client-authentication-method: # unsure of value
             scope:
               - openid
               - roles
